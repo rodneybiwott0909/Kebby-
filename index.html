@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Kebby</title>
+<style>
+:root{--bg:#fff0f3;--card:#fff;--text:#3b1f27;--mut:#9a6b78;--acc:#d62850;--acc2:#ff7a9c;--bd:#ffd3de;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#241118;--card:#32181f;--text:#fbe8ee;--mut:#d3a2b0;--acc:#ff5c80;--acc2:#ff9bb5;--bd:#4a2530}}
+:root[data-theme="dark"]{--bg:#241118;--card:#32181f;--text:#fbe8ee;--mut:#d3a2b0;--acc:#ff5c80;--acc2:#ff9bb5;--bd:#4a2530}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Georgia,'Times New Roman',serif;line-height:1.6}
+main{max-width:600px;margin:0 auto;padding:20px 16px 56px;text-align:center}
+#nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px}
+#nav button{flex:none;background:var(--card);color:var(--acc);border:1px solid var(--bd);border-radius:999px;padding:6px 12px;font:inherit;font-size:.85rem;cursor:pointer}
+#nav button.on{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border-color:transparent}
+h1{font-size:1.8rem;color:var(--acc);margin:0 0 6px}h2{color:var(--acc);font-size:1.3rem;margin:0 0 6px}
+.lead{color:var(--mut);margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:16px;margin-bottom:12px;text-align:left}
+.card h3{margin:0 0 6px;color:var(--acc);font-size:1rem}.card p{margin:0}
+.opt,.go{font:inherit;cursor:pointer}
+.opt{display:block;width:100%;text-align:left;background:var(--bg);color:var(--text);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;margin:6px 0}
+.go{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:0;border-radius:999px;padding:11px 22px;margin:6px 3px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tile{aspect-ratio:1;font-size:1.8rem;border:1px solid var(--bd);border-radius:14px;background:var(--card);cursor:pointer}
+.scr{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border-radius:16px;padding:22px 12px;cursor:pointer;margin-bottom:10px}
+.scr.done{background:var(--card);color:var(--text);border:1px solid var(--bd)}
+.msg{min-height:3em;color:var(--acc);margin-top:10px}
+.pn{display:flex;justify-content:space-between;margin-top:22px}
+.foot{color:var(--mut);font-size:.9rem;margin-top:18px}
+</style></head><body><main>
+<div id="nav"></div><div id="view"></div>
+<div class="pn"><button class="go" onclick="go(-1)">← Back</button><button class="go" onclick="go(1)">Next →</button></div>
+<p class="foot">No reply needed. Take all the time you need. 🌹</p>
+
+<script>
+var $=function(s){return document.querySelector(s)};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function card(h,p){var c=el("div","card");if(h)c.appendChild(el("h3",0,h));c.appendChild(el("p",0,p));return c}
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function mix(a){return a.slice().sort(function(){return Math.random()-.5})}
+
+var pages=[
+["Hello",function(v){v.appendChild(el("h1",0,"Hi Kebby ❤️"));v.appendChild(el("p","lead","No reply needed. This is a gift in your favorite colors, just to make you smile. Use the tabs or the Next button."));v.appendChild(card("From me","I love you, and I never wanted us to reach this point. I'm sorry for how I treated you, especially the threats. They were wrong, and I take full responsibility. You don't owe me anything for this."));}],
+["Bouquet",function(v){v.appendChild(el("h2",0,"Your bouquet 🌹"));v.appendChild(el("p","lead","Tap each flower."));var m=["You make hard days lighter.","Your kindness is real and rare.","You are stronger than you think.","Your laugh is the best sound.","You deserve peace and joy.","You are loved by many people."],g=el("div","grid"),o=el("div","msg","");["🌹","🌷","🌸","🌺","💐","🪷","🌼","🏵️"].forEach(function(f,i){var b=el("button","tile",f);b.onclick=function(){o.textContent=m[i%m.length]};g.appendChild(b)});v.appendChild(g);v.appendChild(o)}],
+["Quiz",function(v){v.appendChild(el("h2",0,"Our secret quiz 😝"));v.appendChild(el("p","lead","No wrong answers."));[["What's the secret thing we do that no one else knows?",["Our private jokes","Our late-night chats","Our silly rituals"]],["What do we always argue about but never mind?",["Music taste 🎶","What to eat","Who's right"]],["What do I secretly admire about you?",["How hard you try","How you care","How you stay strong"]]].forEach(function(x){var c=el("div","card");c.appendChild(el("strong",0,x[0]));var r=el("div","msg","");x[1].forEach(function(t){var b=el("button","opt",t);b.onclick=function(){r.textContent="Great pick. That made me smile. 😊"};c.appendChild(b)});c.appendChild(r);v.appendChild(c)})}],
+["Compliments",function(v){v.appendChild(el("h2",0,"Compliment machine ✨"));var o=el("div","card msg","Tap the button.");o.style.textAlign="center";var a=["You light up a room.","You work harder than most people notice.","You are brave for speaking honestly.","You have a beautiful heart.","You're allowed to rest. You've earned it.","You are more capable than you give yourself credit for.","Your smile is contagious."],b=el("button","go","Give me one");b.onclick=function(){o.textContent=pick(a)};v.appendChild(b);v.appendChild(o)}],
+["Scratch",function(v){v.appendChild(el("h2",0,"Scratch cards 🎟️"));v.appendChild(el("p","lead","Tap to reveal."));["A wish for a calm, happy week.","A reminder that you're doing better than you think.","A hug, in word form: 🤗","May good news find you today."].forEach(function(t){var s=el("div","scr","Tap to reveal 💖");s.onclick=function(){s.textContent=t;s.className="scr done"};v.appendChild(s)})}],
+["Music",function(v){v.appendChild(el("h2",0,"Music for every mood 🎶"));v.appendChild(el("p","lead","We never agree on music, and that's part of the fun."));[["Stressed","Put on something slow and calming. Breathe."],["Happy","Turn it up and dance. You deserve it."],["Kitchen dance party","Anything with a beat and zero judgment. 😂"],["Missing someone","Play a song that feels like a warm hug."]].forEach(function(x){v.appendChild(card(x[0],x[1]))})}],
+["Memory game",function(v){v.appendChild(el("h2",0,"Memory match 💞"));var e=mix(["❤️","🌹","🌸","🎶","🦋","⭐","🍓","💖"].concat(["❤️","🌹","🌸","🎶","🦋","⭐","🍓","💖"])),g=el("div","grid"),f=null,l=false,o=el("div","msg","");e.forEach(function(x){var b=el("button","tile","❔");b.onclick=function(){if(l||b.textContent!=="❔")return;b.textContent=x;if(!f){f=b;return}if(f.textContent===x){f=null;if(!g.textContent.includes("❔"))o.textContent="You did it! 🎉"}else{l=true;var p=f;f=null;setTimeout(function(){p.textContent="❔";b.textContent="❔";l=false},600)}};g.appendChild(b)});v.appendChild(g);v.appendChild(o)}],
+["Mood",function(v){v.appendChild(el("h2",0,"Pick today's mood"));var m={"😊":"Keep that glow going today.","😴":"Rest is productive too. Be gentle with yourself.","😤":"It's okay to feel it. Take a breath.","🥹":"Soft days matter too. You're doing great.","🔥":"Go get it. Nothing can stop you today."},g=el("div","grid"),o=el("div","msg","");Object.keys(m).forEach(function(k){var b=el("button","tile",k);b.onclick=function(){o.textContent=m[k]};g.appendChild(b)});v.appendChild(g);v.appendChild(o)}],
+["Admire",function(v){v.appendChild(el("h2",0,"Things I admire 💖"));[["Your heart","You care deeply for the people in your life."],["Your honesty","You tell the truth straight. That takes courage."],["Your effort","I appreciate everything you put into me and into our relationship. I don't take it for granted."],["Your strength","You carry a lot and keep going."]].forEach(function(x){v.appendChild(card(x[0],x[1]))})}],
+["Memories",function(v){v.appendChild(el("h2",0,"Good memories 📸"));v.appendChild(el("p","lead","[Add real dates and moments before sending.]"));[["The beginning","[A happy early memory you share.]"],["A day that made us laugh","[Something silly you both remember.]"],["A time you were there for me","[A moment when her support meant a lot.]"]].forEach(function(x){v.appendChild(card(x[0],x[1]))})}],
+["Learning",function(v){v.appendChild(el("h2",0,"What I'm learning 🌱"));[["Staying calm","I'm learning to pause instead of reacting in anger."],["Listening","I'm learning to listen to understand, not to win."],["Respect","Respect includes giving space and honoring your choices."]].forEach(function(x){v.appendChild(card(x[0],x[1]))})}],
+["Wishes",function(v){v.appendChild(el("h2",0,"Make a wish 🌷"));var o=el("div","card msg","Tap the button."),a=["May today be gentle with you.","May you laugh until your cheeks hurt.","May you feel safe and cherished.","May your hard work be rewarded.","May you have a peaceful evening.","May you feel proud of how far you've come."],b=el("button","go","Wish");b.onclick=function(){o.textContent=pick(a)};v.appendChild(b);v.appendChild(o)}],
+["Poem",function(v){v.appendChild(el("h2",0,"A little note in rhyme 🌹"));v.appendChild(card("","Roses are red, and pink is your shade,\nYour joy is my wish, whatever the day.\nI'm sorry for the hurt, and I'm learning to grow,\nI hope you feel peace wherever you go."));}],
+["Letter",function(v){v.appendChild(el("h2",0,"A letter ✉️"));v.appendChild(card("Kebby,","I know I hurt you, and I know trust doesn't come back with words. I'm not asking for anything. I wanted you to know I love you, that I'm sorry, and that I respect you. Whatever you choose, I wish you happiness."));}],
+["Last note",function(v){v.appendChild(el("h2",0,"One last thing ❤️"));v.appendChild(card("","Thank you for reading. Take all the time you need, and there's nothing you have to do with this. I'm rooting for you."));}]
+];
+var cur=0,nav=$("#nav"),view=$("#view");
+pages.forEach(function(p,i){var b=el("button","",(i+1)+". "+p[0]);b.onclick=function(){go(i-cur)};nav.appendChild(b)});
+function go(d){var n=cur+d;if(n<0||n>=pages.length)return;cur=n;view.innerHTML="";pages[cur][1](view);nav.querySelectorAll("button").forEach(function(b,i){b.className=i===cur?"on":""});window.scrollTo(0,0)}
+cur=-1;go(1);
+</script></main></body></html>
